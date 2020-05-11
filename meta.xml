@@ -1,0 +1,14 @@
+<meta>
+    <info author="iDannz" type="script" name="chess" />
+
+    <script src="c.main.lua" type='client' />
+    <script src="c.utils.lua" type='client' />
+
+    <file src='icons/bishop.png' />
+    <file src='icons/king.png' />
+    <file src='icons/knight.png' />
+    <file src='icons/rook.png' />
+    <file src='icons/queen.png' />
+    <file src='icons/pawn.png' />
+
+</meta>
