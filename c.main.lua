@@ -115,6 +115,7 @@ function toggleChess(state)
     chess.drawing = state
 end
 
+
 local letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'}
 
 function drawChess()
