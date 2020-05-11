@@ -94,9 +94,7 @@ local chess = {
     hoverBox = nil,
 }
 
-
 local myTeam = 2
-local stringformat = string.format
 
 function resizeChess(size)
     size = size and pixels(size) or pixels(768)
