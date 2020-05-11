@@ -132,7 +132,6 @@ function drawChess()
     
     local movingThisPiece = nil
     local thisID = 0
-    local tempMatrix = {x = {}, y = {}}
     
     for yy = 1, 8 do
         for xx = 1, 8 do
@@ -214,7 +213,6 @@ function drawChess()
             dxDrawText(letters[yy] .. xx, x, y, x + boxSize, y + boxSize, reverseColor, 1, 'default-bold', 'center', 'top')
         end
     end
-    chess.matriced = tempMatrix
     
     local cx, cy = getCursorPosition(true)
     if chess.drag then
