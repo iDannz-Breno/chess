@@ -10,13 +10,13 @@ local chess = {
     },
     
     pieces = {
-        ['rook'] = {--ok
+        ['rook'] = {
             icon = 'icons/rook.png',
         },
-        ['knight'] = {--ok
+        ['knight'] = {
             icon = 'icons/knight.png',
         },
-        ['bishop'] = {--ok
+        ['bishop'] = {
             icon = 'icons/bishop.png',
         },
         ['queen'] = {
@@ -25,17 +25,17 @@ local chess = {
         ['king'] = {
             icon = 'icons/king.png',
         },
-        ['pawn'] = {--ok
+        ['pawn'] = {
             icon = 'icons/pawn.png',
         },
     },
-    team = {
+    team = {-- maybe multiplayer later (?)
         [1] = 'Machine',
         [2] = getPlayerName(localPlayer),
     },
     matrix = {
         -- [x] = {
-        -- y
+        -- [y] = {name = 'pieces[~]', team = {1 or 2}}
         -- }
         [1] = {
             [1] = {name = 'rook', team = 1},
@@ -88,26 +88,25 @@ local chess = {
         },
     },
     
+    -- other stuff (will be assigned below)
     drag = nil,
     hover = nil,
     hoverBox = nil,
-    
-    turn = 1,
 }
 
 
 local myTeam = 2
 local stringformat = string.format
 
-function chess:resize(size)
-    size = size and pixels(size) or pixels(1000)
+function resizeChess(size)
+    size = size and pixels(size) or pixels(768)
     
     chess.x = (screenW / 2) - (size / 2)
     chess.y = (screenH / 2) - (size / 2)
     chess.size = size
 end
 
-function chess:toggle(state)
+function toggleChess(state)
     if state then
         addEventHandler('onClientRender', root, drawChess)
         addEventHandler('onClientClick', root, onClick)
@@ -151,11 +150,11 @@ function drawChess()
             end
             
             dxDrawRectangle(x, y, boxSize, boxSize, color)
-                    
+            
             local reverseColor = color == chess.color.bg1 and chess.color.bg2 or chess.color.bg1
             
             local hover = isHoverBox(x, y, boxSize, boxSize)
-
+            
             local pieceHere = chess.matrix[xx] and chess.matrix[xx][yy]
             
             if pieceHere then
@@ -187,8 +186,7 @@ function drawChess()
                 dxDrawImage(x + padding / 2, y + padding / 2, boxSize - padding, boxSize - padding, chess.pieces[pieceName].icon, 0, 0, 0, color)
                 dxDrawText(pieceName, x, y, x + boxSize, y + boxSize, reverseColor, 1, 'default-bold', 'center', 'bottom')
             end
-            
-            
+                        
             if hover then
                 chess.hoverBox = {x = xx, y = yy}
             else
@@ -203,8 +201,7 @@ function drawChess()
                 end
             -- dxDrawText(inspect({hoverBox = chess.hoverBox, hover = chess.hover}), 1500, 200)
             end
-            
-            
+                        
             if yy == 1 then
                 dxDrawText(xx, x, y - boxSize * 2, x + boxSize, y + boxSize, color, 3, 'default-bold', 'center', 'center')
             end
@@ -247,7 +244,6 @@ function isPosWithinEnemy(xx, yy)
     local matrix = chess.matrix
     return matrix[xx][yy] and (matrix[xx][yy].team ~= myTeam)
 end
-
 
 function getPossibleMovements()
     local start = getTickCount()
@@ -509,8 +505,8 @@ function onClick(btn, state)
 end
 
 addEventHandler('onClientResourceStart', resourceRoot, function()
-    chess:resize(screenH * 0.8)
-    chess:toggle(not chess.drawing)
+    resizeChess(screenH * 0.8)
+    toggleChess(not chess.drawing)
     fadeCamera(false)
     showCursor(true)
 end)
