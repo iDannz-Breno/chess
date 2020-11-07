@@ -1,2 +1,2 @@
 # chess
- simple chess resource made in lua for mtasa (in development)
+ simple chess resource made in lua for mtasa (not completed)
